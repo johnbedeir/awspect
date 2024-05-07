@@ -1,7 +1,7 @@
 # AWS Resource Discovery
 
 <p align="center">
-  <img src="logo.png" alt="AWSPECT Logo" width=200px>
+  <img src="templates/images/logo.png" alt="AWSPECT Logo" width=200px>
 </p>
 
 This tool is designed to interact with AWS and list resources such as EC2 instances, S3 buckets, IAM users, and more. It provides a web interface where users can select which resources they want to view.
@@ -73,15 +73,21 @@ AWS_PROFILE=default
 
 ## Usage
 
-Install the requirements.txt file:
-
 ```bash
-pip3 install -r requirements.txt
 
 python3 awspect-web.py
 ```
 
 Visit `http://127.0.0.1:5000/` in your web browser to use the tool.
+
+Select the resources or select all:
+<img src="templates/images/1.png">
+
+View the available resources:
+<img src="templates/images/2.png">
+
+Compare the results:
+<img src="templates/images/3.png">
 
 ---
 
@@ -96,6 +102,8 @@ python3 awspect-terminal.py
 ```
 
 This command launches the script that interacts with AWS to retrieve and display resources in the command line interface.
+
+<img src="templates/images/4.png">
 
 ## Contributing
 
