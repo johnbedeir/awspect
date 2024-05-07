@@ -1,6 +1,6 @@
 # AWS Resource Discovery
 
-<div style="text-align: center;"><img src="logo.png" alt="Logo"></div>
+<img src="logo.png" alt="Logo">
 
 This tool is designed to interact with AWS and list resources such as EC2 instances, S3 buckets, IAM users, and more. It provides a web interface where users can select which resources they want to view.
 
