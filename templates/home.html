@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Resource Viewer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">      
+        <h1>AWS Resource Discovery</h1>
+        <form action="/" method="post" class="mt-3">
+            <div class="mb-3">
+                <label class="form-label">Select AWS Resources to List:</label><br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="selectAll">
+                    <label class="form-check-label" for="selectAll">
+                        Select All
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="EC2" id="EC2">
+                    <label class="form-check-label" for="EC2">EC2 Instances</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="S3" id="S3">
+                    <label class="form-check-label" for="S3">S3 Buckets</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="EKS" id="EKS">
+                    <label class="form-check-label" for="EKS">EKS</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="VPC" id="VPC">
+                    <label class="form-check-label" for="VPC">VPC</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="SG" id="SG">
+                    <label class="form-check-label" for="SG">Security Groups</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="ECR" id="ECR">
+                    <label class="form-check-label" for="ECR">ECR</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="RDS" id="RDS">
+                    <label class="form-check-label" for="RDS">RDS Instances</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="RDSSNAP" id="RDSSNAP">
+                    <label class="form-check-label" for="RDSSNAP">RDS Snapshots</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="IAM" id="IAM">
+                    <label class="form-check-label" for="IAM">IAM Users</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="SSM" id="SSM">
+                    <label class="form-check-label" for="SSM">Systems Manager Parameters</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="SECRETS" id="SECRETS">
+                    <label class="form-check-label" for="SECRETS">Secrets Manager Secrets</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="resource" value="LAMBDA" id="LAMBDA">
+                    <label class="form-check-label" for="LAMBDA">Lambda Functions</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Resources</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('selectAll').onclick = function() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"][name="resource"]');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        }
+    </script>
+        
+</body>
+</html>
