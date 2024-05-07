@@ -74,7 +74,6 @@ AWS_PROFILE=default
 ## Usage
 
 ```bash
-
 python3 awspect-web.py
 ```
 

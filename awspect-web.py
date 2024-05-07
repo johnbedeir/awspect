@@ -4,7 +4,7 @@ import boto3
 
 app = Flask(__name__)
 
-aws_profile = os.getenv('AWS_PROFILE', 'default')
+aws_profile = os.getenv('AWS_PROFILE', 'default') # fallback for default aws configuration if .env was not set
 
 session = boto3.Session(profile_name=aws_profile)
     
