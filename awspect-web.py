@@ -155,4 +155,5 @@ def list_api_gateways():
     return [{'id': api['id'], 'name': api['name']} for api in rest_apis['items']]
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    debug_mode = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(debug=debug_mode)
