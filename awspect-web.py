@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request
 import boto3
+from botocore.exceptions import ClientError
 
 app = Flask(__name__)
 
@@ -14,38 +15,43 @@ def home():
         selected_resources = request.form.getlist('resource')
         results = {}
         for resource_type in selected_resources:
-            if resource_type == 'EC2':
-                results['EC2 Instances'] = list_ec2_instances()
-            elif resource_type == 'S3':
-                results['S3 Buckets'] = list_s3_buckets()
-            elif resource_type == 'EKS':
-                results['EKS'] = list_eks_clusters()
-            elif resource_type == 'VPC':
-                results['VPC'] = list_vpcs()
-            elif resource_type == 'SG':
-                results['SecurityGroup'] = list_security_groups()
-            elif resource_type == 'ECR':
-                results['ECR'] = list_ecr_repositories()
-            elif resource_type == 'RDS':
-                results['RDS'] = list_rds_instances()
-            elif resource_type == 'RDSSNAP':
-                results['RDS Snapshot'] = list_rds_snapshots()
-            elif resource_type == 'IAM':
-                results['IAM'] = list_iam_users()
-            elif resource_type == 'SSM':
-                results['SystemsManager'] = list_ssm_parameters()
-            elif resource_type == 'SECRETS':
-                results['SecretsManager'] = list_secrets()
-            elif resource_type == 'LAMBDA':
-                results['LAMBDA Functions'] = list_lambda_functions()
-            elif resource_type == 'DocumentDB':
-                results['DocumentDB Clusters'] = list_documentdb_clusters()
-            elif resource_type == 'CloudFront':
-                results['CloudFront Distributions'] = list_cloudfront_distributions()
-            elif resource_type == 'Route53':
-                results['Route 53 Hosted Zones'] = list_route53_hosted_zones()
-            elif resource_type == 'APIGateway':
-                results['API Gateways'] = list_api_gateways()
+            try:
+                if resource_type == 'EC2':
+                    results['EC2 Instances'] = list_ec2_instances()
+                elif resource_type == 'S3':
+                    results['S3 Buckets'] = list_s3_buckets()
+                elif resource_type == 'EKS':
+                    results['EKS'] = list_eks_clusters()
+                elif resource_type == 'VPC':
+                    results['VPC'] = list_vpcs()
+                elif resource_type == 'SG':
+                    results['SecurityGroup'] = list_security_groups()
+                elif resource_type == 'ECR':
+                    results['ECR'] = list_ecr_repositories()
+                elif resource_type == 'RDS':
+                    results['RDS'] = list_rds_instances()
+                elif resource_type == 'RDSSNAP':
+                    results['RDS Snapshot'] = list_rds_snapshots()
+                elif resource_type == 'IAM':
+                    results['IAM'] = list_iam_users()
+                elif resource_type == 'SSM':
+                    results['SystemsManager'] = list_ssm_parameters()
+                elif resource_type == 'SECRETS':
+                    results['SecretsManager'] = list_secrets()
+                elif resource_type == 'LAMBDA':
+                    results['LAMBDA Functions'] = list_lambda_functions()
+                elif resource_type == 'DocumentDB':
+                    results['DocumentDB Clusters'] = list_documentdb_clusters()
+                elif resource_type == 'CloudFront':
+                    results['CloudFront Distributions'] = list_cloudfront_distributions()
+                elif resource_type == 'Route53':
+                    results['Route 53 Hosted Zones'] = list_route53_hosted_zones()
+                elif resource_type == 'APIGateway':
+                    results['API Gateways'] = list_api_gateways()
+            except ClientError as e:
+                results[resource_type] = {
+                    "error": e.response["Error"]["Message"]
+                }
             # Add More Resources here
         return render_template('display.html', results=results)
     return render_template('home.html')
