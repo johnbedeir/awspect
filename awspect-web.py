@@ -59,7 +59,7 @@ def home():
                 elif resource_type == 'Route53':
                     results['Route 53 Hosted Zones'] = list_route53_hosted_zones()
                 elif resource_type == 'APIGateway':
-                    results['API Gateways'] = list_api_gateways()
+                    results['API Gateways'] = list_api_gateways(selected_regions)
             except ClientError as e:
                 results[resource_type] = {
                     "error": e.response["Error"]["Message"]
