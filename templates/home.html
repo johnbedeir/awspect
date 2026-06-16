@@ -10,7 +10,28 @@
     <div class="container mt-5">      
         <h1>AWS Resource Discovery</h1>
         <form action="/" method="post" class="mt-3">
-            <div class="mb-3">
+            <h4>Select Regions</h4>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="regions" value="all" id="allRegions">
+                <label class="form-check-label" for="allRegions">
+                    All Regions
+                </label>
+            </div>
+
+            {% for region in regions %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       name="regions"
+                       value="{{ region }}"
+                       id="{{ region }}">
+                <label class="form-check-label" for="{{ region }}">
+                    {{ region }}
+                </label>
+            </div>
+            {% endfor %}
+
+            <div class="mb-3 mt-3">
                 <label class="form-label">Select AWS Resources to List:</label><br>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="selectAll">
@@ -36,7 +57,8 @@
                     <input class="form-check-input" type="checkbox" name="resource" value="EKS" id="EKS">
                     <label class="form-check-label" for="EKS">
                         <img src="../static/images/eks.svg" alt="EKS Logo" style="width: 30px; height: 30px; vertical-align: middle;">
-                        &nbsp;EKS</label>
+                        &nbsp;EKS
+                    </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="resource" value="VPC" id="VPC">
@@ -83,10 +105,9 @@
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="resource" value="SSM" id="SSM">
                     <label class="form-check-label" for="SSM">
-                        <label class="form-check-label" for="SECRETS">
-                            <img src="../static/images/ssm.svg" alt="SSM Logo" style="width: 30px; height: 30px; vertical-align: middle;">
-                            &nbsp;Systems Manager Parameters
-                        </label>
+                        <img src="../static/images/ssm.svg" alt="SSM Logo" style="width: 30px; height: 30px; vertical-align: middle;">
+                        &nbsp;Systems Manager Parameters
+                    </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="resource" value="SECRETS" id="SECRETS">
@@ -113,22 +134,22 @@
                     <input class="form-check-input" type="checkbox" name="resource" value="CloudFront" id="CloudFront">
                     <label class="form-check-label" for="CloudFront">
                         <img src="../static/images/cloudfront.svg" alt="CloudFront Logo" style="width: 30px; height: 30px; vertical-align: middle;">
-                            &nbsp;CloudFront
-                        </label>
+                        &nbsp;CloudFront
+                    </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="resource" value="Route53" id="Route53">
                     <label class="form-check-label" for="Route53">
                         <img src="../static/images/r53.svg" alt="R53 Logo" style="width: 30px; height: 30px; vertical-align: middle;">
-                            &nbsp;Route 53
-                        </label>
+                        &nbsp;Route 53
+                    </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="resource" value="APIGateway" id="APIGateway">
                     <label class="form-check-label" for="APIGateway">
                         <img src="../static/images/gw.png" alt="APIGateway Logo" style="width: 30px; height: 30px; vertical-align: middle;">
-                            &nbsp;API Gateway
-                        </label>
+                        &nbsp;API Gateway
+                    </label>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Get Resources</button>
@@ -143,6 +164,5 @@
             }
         }
     </script>
-        
 </body>
 </html>

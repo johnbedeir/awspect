@@ -7,16 +7,82 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7gy/lpif7zzRtLee5dVJ2jnz0Qd8gqk8qULl" crossorigin="anonymous">
 </head>
 <body>
-    <!-- Example of handling multiple resource types in display.html -->
     <div class="container mt-5">
         {% for resource_type, resources in results.items() %}
             <h2>{{ resource_type }}</h2>
-            <ul>
-                {% for resource in resources %}
-                    <li>{{ resource.id }}</li>
-                {% endfor %}
-            </ul>
+
+            {% if resources and resources[0] is mapping and 'region' in resources[0] %}
+                {# Display resources with region information #}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Region</th>
+                            <th>ID/Name</th>
+                            {% if resources[0].state is defined %}
+                                <th>State</th>
+                            {% elif resources[0].type is defined %}
+                                <th>Type</th>
+                            {% elif resources[0].status is defined %}
+                                <th>Status</th>
+                            {% elif resources[0].description is defined %}
+                                <th>Description</th>
+                            {% elif resources[0].uri is defined %}
+                                <th>URI</th>
+                            {% elif resources[0].runtime is defined %}
+                                <th>Runtime</th>
+                            {% elif resources[0].domain_name is defined %}
+                                <th>Domain Name</th>
+                            {% elif resources[0].name is defined and resources[0].id is not defined %}
+                                <th>Name</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for resource in resources %}
+                            <tr>
+                                <td>{{ resource.region if resource.region else 'N/A' }}</td>
+                                <td>{{ resource.id if resource.id else resource.name if resource.name else 'N/A' }}</td>
+                                {% if resource.state is defined %}
+                                    <td>{{ resource.state }}</td>
+                                {% elif resource.type is defined %}
+                                    <td>{{ resource.type }}</td>
+                                {% elif resource.status is defined %}
+                                    <td>{{ resource.status }}</td>
+                                {% elif resource.description is defined %}
+                                    <td>{{ resource.description }}</td>
+                                {% elif resource.uri is defined %}
+                                    <td>{{ resource.uri }}</td>
+                                {% elif resource.runtime is defined %}
+                                    <td>{{ resource.runtime }}</td>
+                                {% elif resource.domain_name is defined %}
+                                    <td>{{ resource.domain_name }}</td>
+                                {% elif resource.name is defined and resource.id is not defined %}
+                                    <td>{{ resource.name }}</td>
+                                {% else %}
+                                    <td>N/A</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                {# Display resources without region information (global services) #}
+                <ul>
+                    {% for resource in resources %}
+                        <li>
+                            {% if resource.id %}
+                                {{ resource.id }}
+                            {% elif resource.name %}
+                                {{ resource.name }}
+                            {% else %}
+                                {{ resource }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         {% endfor %}
+
         <a href="/" class="btn btn-link">Back to Home</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
